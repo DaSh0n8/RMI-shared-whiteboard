@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.1404494382022472" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="356.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.whiteboard.WhiteboardController">
+   <items>
+      <AnchorPane id="shapesBar" minHeight="0.0" minWidth="0.0" prefHeight="49.0" prefWidth="598.0">
+         <children>
+            <Button fx:id="circleButton" layoutX="75.0" layoutY="10.0" mnemonicParsing="false" onDragDetected="#createCircleShape" text="Circle" />
+            <Button fx:id="ovalButton" layoutX="128.0" layoutY="10.0" mnemonicParsing="false" onDragDetected="#createOvalShape" text="Oval" />
+            <Button id="rectangleButton" fx:id="rectangleButton" layoutX="174.0" layoutY="11.0" mnemonicParsing="false" onDragDetected="#createRectangleShape" text="Rectangle" />
+            <Label fx:id="clientUsername" layoutX="530.0" layoutY="14.0" text="Username" />
+            <ColorPicker fx:id="colorPicker" layoutX="413.0" layoutY="11.0" prefHeight="25.0" prefWidth="99.0" />
+            <Button fx:id="eraserButton" layoutX="251.0" layoutY="11.0" mnemonicParsing="false" onMouseClicked="#eraserClicked" text="Eraser" />
+            <Button fx:id="drawButton" layoutX="304.0" layoutY="11.0" mnemonicParsing="false" onAction="#enableDrawing" text="Draw" />
+            <MenuButton layoutX="14.0" layoutY="11.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="54.0" text="File">
+              <items>
+                <MenuItem fx:id="newButton" mnemonicParsing="false" onAction="#createNew" text="New" />
+                <MenuItem fx:id="openButton" mnemonicParsing="false" onAction="#openNew" text="Open" />
+                  <MenuItem fx:id="saveButton" mnemonicParsing="false" onAction="#saveFile" text="Save" />
+                  <MenuItem fx:id="saveAsButton" mnemonicParsing="false" onAction="#saveAsFile" text="SaveAs" />
+              </items>
+            </MenuButton>
+            <Button fx:id="textButton" layoutX="355.0" layoutY="11.0" mnemonicParsing="false" onDragDetected="#createText" text="Text" />
+         </children>
+      </AnchorPane>
+      <AnchorPane id="whiteboard" fx:id="whiteboard" minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="301.0" prefWidth="268.0">
+         <children>
+            <TabPane fx:id="tabPane" layoutX="441.0" layoutY="1.0" prefHeight="301.0" prefWidth="158.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="List">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="userList" layoutX="-1.0" prefHeight="272.0" prefWidth="158.0" />
+                              <Button fx:id="kickButton" layoutX="53.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#kickUser" text="Kick" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Chat">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="chatWindow" prefHeight="271.0" prefWidth="158.0" />
+                              <TextField fx:id="chatTextField" layoutX="4.0" layoutY="233.0" prefHeight="25.0" prefWidth="110.0" />
+                              <Button fx:id="sendButton" layoutX="114.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#sendChat" prefHeight="25.0" prefWidth="44.0" text="Send" />
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab fx:id="waitingTab" text="Waiting">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="waitingList" layoutY="1.0" prefHeight="272.0" prefWidth="158.0" />
+                              <Button fx:id="approveButton" layoutX="20.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#userApproved" text="Approve" />
+                              <Button fx:id="rejectButton" layoutX="85.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#userRejected" prefHeight="25.0" prefWidth="60.0" text="Reject" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+             <AnchorPane fx:id="realWhiteBoard" layoutX="6.0" prefHeight="301.0" prefWidth="432.0" style="-fx-background-color: #F0F0F0;">
+                 <children>
+                     <Canvas fx:id="canvas" height="301.0" style="-fx-background-color: red;" width="432.0" />
+                     <Canvas fx:id="eraserCanvas" height="301.0" width="432.0" />
+                 </children>
+             </AnchorPane>
+            <DialogPane fx:id="usernamePopup" layoutX="98.0" layoutY="14.0" prefHeight="240.0" prefWidth="387.0" style="-fx-border-color: Grey;" />
+            <Label fx:id="enterUsernameLabel" layoutX="236.0" layoutY="73.0" text="Enter your username" />
+            <TextField fx:id="usernameField" layoutX="217.0" layoutY="108.0" />
+            <Button fx:id="usernameButton" layoutX="265.0" layoutY="151.0" mnemonicParsing="false" onMouseClicked="#createUser" text="Done" />
+            <Label fx:id="errorLabel" layoutX="221.0" layoutY="90.0" prefHeight="17.0" prefWidth="142.0" textAlignment="CENTER" textFill="RED" />
+            <AnchorPane fx:id="waitingScreen" layoutX="-2.0" layoutY="-56.0" prefHeight="362.0" prefWidth="600.0" style="-fx-background-color: cyan;">
+               <children>
+                  <Label layoutX="250.0" layoutY="173.0" text="Awaiting  Approval" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+   </items>
+</SplitPane>
